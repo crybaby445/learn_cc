@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Capital Partners</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #112240;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --white: #ffffff;
+      --gray: #6b7280;
+      --light: #f8f9fb;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --text: #1a1a2e;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.3px;
+    }
+    .logo span { color: var(--gold); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    nav ul a {
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--navy); }
+
+    .nav-cta {
+      background: var(--navy);
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #f8f9fb 0%, #eef1f8 100%);
+      padding: 100px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      color: #8a6a1f;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(10,22,40,0.18);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(10,22,40,0.24); }
+
+    .btn-outline {
+      border: 2px solid var(--navy);
+      color: var(--navy);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background .2s, color .2s;
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+    /* Hero stats cards */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      border: 1px solid var(--border);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); }
+
+    .stat-card:first-child { grid-column: 1 / -1; }
+
+    .stat-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon.gold { background: rgba(201,168,76,0.12); }
+    .stat-icon.navy { background: rgba(10,22,40,0.08); }
+    .stat-icon.green { background: rgba(34,197,94,0.1); }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--gray); font-weight: 500; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 5%; }
+
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 560px;
+    }
+
+    .section-header { margin-bottom: 3.5rem; }
+
+    /* ── FOCUS AREAS ── */
+    .focus { background: var(--light); }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .focus-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .focus-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.09);
+      border-color: var(--gold-light);
+    }
+
+    .focus-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .focus-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .focus-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .portfolio-card {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 2rem 2.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    }
+
+    .portfolio-logo {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .portfolio-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+
+    .portfolio-info .sector {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-info p {
+      font-size: 0.88rem;
+      color: var(--gray);
+    }
+
+    .portfolio-meta {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .portfolio-meta span {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    .portfolio-meta strong {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    /* ── APPROACH ── */
+    .approach { background: var(--light); }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .approach-steps { display: flex; flex-direction: column; gap: 1.75rem; }
+
+    .step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .step-body h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+    }
+
+    .step-body p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .approach-visual {
+      background: var(--navy);
+      border-radius: 24px;
+      padding: 2.5rem;
+      color: var(--white);
+    }
+
+    .approach-visual h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--gold-light);
+    }
+
+    .approach-visual p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2rem;
+    }
+
+    .metrics { display: flex; flex-direction: column; gap: 1rem; }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .metric-name { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+    .metric-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+
+    .team-avatar {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+    }
+
+    .team-body { padding: 1.5rem; }
+
+    .team-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .team-body .role {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .team-body p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--navy);
+      text-align: center;
+      padding: 120px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.1) 0%, transparent 70%);
+    }
+
+    .cta-inner { max-width: 680px; margin: 0 auto; position: relative; }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .cta h2 em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+
+    .cta p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-block;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060d1a;
+      color: rgba(255,255,255,0.55);
+      padding: 60px 5% 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand .logo { color: var(--white); font-size: 1.1rem; display: block; margin-bottom: 0.75rem; }
+
+    .footer-brand p { font-size: 0.85rem; line-height: 1.7; max-width: 280px; }
+
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .footer-col ul a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.87rem;
+      transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--gold-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner, .approach-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-stats { order: -1; }
+      .focus-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 580px) {
+      nav ul { display: none; }
+      .focus-grid, .team-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .stat-card:first-child { grid-column: auto; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo">Meridian<span>Capital</span></span>
+  <ul>
+    <li><a href="#focus">Focus</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">Private Equity · Since 1998</div>
+      <h1>We invest in<br /><em>exceptional</em><br />businesses</h1>
+      <p>Meridian Capital Partners provides long-term, transformative capital to middle-market companies in healthcare, technology, and industrial sectors.</p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn-primary">View Portfolio</a>
+        <a href="#approach" class="btn-outline">Our Approach</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon gold">💼</div>
+        <div class="stat-num">$4.8B</div>
+        <div class="stat-label">Assets Under Management</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon navy">📈</div>
+        <div class="stat-num">2.6×</div>
+        <div class="stat-label">Avg. MOIC</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">🏢</div>
+        <div class="stat-num">60+</div>
+        <div class="stat-label">Portfolio Companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS AREAS -->
+<section class="focus" id="focus">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">Investment Focus</span>
+      <h2 class="section-title">Sectors we know<br />deeply and back boldly</h2>
+      <p class="section-sub">We concentrate capital and expertise in three high-conviction verticals where our network and operational experience create durable value.</p>
+    </div>
+
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-icon">🏥</div>
+        <h3>Healthcare Services</h3>
+        <p>Physician practice management, specialty pharmacy, behavioral health, and healthcare IT. We partner with founder-led platforms at inflection points.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">⚙️</div>
+        <h3>Industrial &amp; Manufacturing</h3>
+        <p>Engineered components, specialty chemicals, and value-added distribution. We accelerate operational excellence and strategic M&amp;A.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">💻</div>
+        <h3>Technology &amp; Software</h3>
+        <p>Vertical SaaS, business process automation, and mission-critical infrastructure software with recurring revenue and defensible market positions.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">📊</div>
+        <h3>Business Services</h3>
+        <p>Tech-enabled services, outsourced business processes, and professional services firms with scalable delivery models.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">🌱</div>
+        <h3>ESG Integration</h3>
+        <p>We embed environmental, social, and governance considerations throughout our investment lifecycle — from diligence through exit.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">🌍</div>
+        <h3>Growth Equity</h3>
+        <p>Minority and majority growth equity in companies with $10M–$75M EBITDA, providing capital for organic growth and bolt-on acquisitions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">Portfolio</span>
+      <h2 class="section-title">Companies we're<br />proud to back</h2>
+      <p class="section-sub">A selection of current and realized investments across our core sectors.</p>
+    </div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-logo">RX</div>
+        <div class="portfolio-info">
+          <div class="sector">Healthcare</div>
+          <h3>RxPath Solutions</h3>
+          <p>Specialty pharmacy network serving oncology and rare disease patients across 32 states.</p>
+          <div class="portfolio-meta">
+            <span><strong>$220M</strong> Revenue</span>
+            <span><strong>2021</strong> Investment</span>
+            <span><strong>Current</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-logo">VX</div>
+        <div class="portfolio-info">
+          <div class="sector">Software</div>
+          <h3>Vexar Systems</h3>
+          <p>ERP and workflow automation software for mid-market manufacturers, with 94% gross retention.</p>
+          <div class="portfolio-meta">
+            <span><strong>$85M</strong> ARR</span>
+            <span><strong>2022</strong> Investment</span>
+            <span><strong>Current</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-logo">OP</div>
+        <div class="portfolio-info">
+          <div class="sector">Industrial</div>
+          <h3>Optima Precision</h3>
+          <p>Engineered fastening solutions for aerospace and defense OEMs. Exited at 3.1× MOIC in 2023.</p>
+          <div class="portfolio-meta">
+            <span><strong>3.1×</strong> MOIC</span>
+            <span><strong>2018</strong> Investment</span>
+            <span><strong>Realized</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-logo">CB</div>
+        <div class="portfolio-info">
+          <div class="sector">Business Services</div>
+          <h3>ClarityBridge</h3>
+          <p>Tech-enabled compliance and risk advisory services for financial institutions and insurance carriers.</p>
+          <div class="portfolio-meta">
+            <span><strong>$140M</strong> Revenue</span>
+            <span><strong>2023</strong> Investment</span>
+            <span><strong>Current</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach" id="approach">
+  <div class="section-inner">
+    <div class="approach-grid">
+      <div>
+        <span class="section-tag">Our Approach</span>
+        <h2 class="section-title">Partnership-driven<br />value creation</h2>
+        <p class="section-sub" style="margin-bottom: 2.5rem;">We don't just write checks. Our operating partners embed in portfolio companies to drive strategic and operational transformation.</p>
+
+        <div class="approach-steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Sourcing &amp; Diligence</h4>
+              <p>Proprietary deal flow from sector-specialist networks. Deep commercial, financial, and management diligence before commitment.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>100-Day Plan</h4>
+              <p>Rapid value creation priorities established at close — talent assessment, pricing optimization, and M&amp;A pipeline.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Operational Partnership</h4>
+              <p>Dedicated operating partners, functional experts in sales, technology, and supply chain embedded alongside management.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h4>Exit Optimization</h4>
+              <p>Strategic buyer relationships, dual-track processes, and public market expertise to maximize realization outcomes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="approach-visual">
+        <h3>Fund VI Performance</h3>
+        <p>As of Q4 2025 · Vintage 2021</p>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-name">Gross IRR</span>
+            <span class="metric-val">28.4%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-name">Net IRR</span>
+            <span class="metric-val">22.1%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-name">Gross MOIC</span>
+            <span class="metric-val">2.3×</span>
+          </div>
+          <div class="metric">
+            <span class="metric-name">Invested Capital</span>
+            <span class="metric-val">$1.9B</span>
+          </div>
+          <div class="metric">
+            <span class="metric-name">Portfolio Companies</span>
+            <span class="metric-val">18</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">Leadership</span>
+      <h2 class="section-title">The team behind<br />the capital</h2>
+      <p class="section-sub">Our partners bring decades of operating, banking, and investment experience across our core sectors.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">👔</div>
+        <div class="team-body">
+          <h3>James Whitfield</h3>
+          <div class="role">Managing Partner &amp; Founder</div>
+          <p>30 years in private equity. Previously Partner at Blackstone and Head of M&amp;A at Goldman Sachs. Wharton MBA.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👩‍💼</div>
+        <div class="team-body">
+          <h3>Sarah Chen</h3>
+          <div class="role">Partner, Healthcare</div>
+          <p>15 years of healthcare services investing. Led over $2B in platform acquisitions. Former SVP at Optum Ventures.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">🧑‍💻</div>
+        <div class="team-body">
+          <h3>Marcus Rivera</h3>
+          <div class="role">Partner, Technology</div>
+          <p>Former CTO of two SaaS companies. Expert in vertical software buy-and-build strategies with 12 successful exits.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <h2>Ready to explore a<br /><em>partnership?</em></h2>
+    <p>We're always looking for exceptional management teams and compelling businesses. Reach out to begin a conversation.</p>
+    <a href="mailto:investments@meridiancapital.com" class="btn-gold">Get in Touch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">Meridian<span style="color:var(--gold)">Capital</span></span>
+        <p>Long-term capital and operational partnership for exceptional middle-market companies.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Firm</h4>
+        <ul>
+          <li><a href="#focus">Investment Focus</a></li>
+          <li><a href="#approach">Our Approach</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Funds</h4>
+        <ul>
+          <li><a href="#">Fund VI</a></li>
+          <li><a href="#">Fund V</a></li>
+          <li><a href="#">Growth Equity</a></li>
+          <li><a href="#">LP Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">New York, NY</a></li>
+          <li><a href="#">San Francisco, CA</a></li>
+          <li><a href="mailto:investments@meridiancapital.com">Investments</a></li>
+          <li><a href="mailto:ir@meridiancapital.com">Investor Relations</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Meridian Capital Partners. All rights reserved.</span>
+      <span>
+        <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+        <a href="#">Terms of Use</a> &nbsp;·&nbsp;
+        <a href="#">Regulatory Disclosures</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
